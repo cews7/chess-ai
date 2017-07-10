@@ -90,6 +90,7 @@ class piece:
                     if self.position[0]-1==x and (self.position[1]==y+1 or piece.position[1]==y-1) and board[x][y].color=='white':
                         return board[x][y]
             return False
+
         if self.name=='rook':
             if piece_x==x:
                 for i in range(min(piece_y,y),max(piece_y,y))[1:]:
@@ -113,8 +114,96 @@ class piece:
                 else:
                     return True
 
+        if self.name=='bishop':
+    	    if x>piece_x and y>piece_y:
+    	        for i in range(min(piece_x,x),max(piece_x,x))[1:]:
+    	            if board[piece_x+i][piece_y+i].naime!=' ':
+    	                return False
+    	    if x>piece_x and y<piece_y:
+    	        for i in range(min(piece_x,x),max(piece_x,x))[1:]:
+    	            if board[piece_x+i][piece_y-i].name!=' ':
+    	                return False
+    	    if x<piece_x and y>piece_y:
+    	        for i in range(min(piece_x,x),max(piece_x,x))[1:]:
+    	            if board[piece_x-i][piece_y+i].name!=' ':
+    	                return False
+    	    if x<piece_x and y<piece_y:
+    	        for i in range(min(piece_x,x),max(piece_x,x))[1:]:
+    	            if board[piece_x-i][piece_y-i].name!=' ':
+    	                return False
+
+    	    if board[x][y].color==self.getOtherColor():
+                return board[x][y]
+            elif board[x][y].color==self.color:
+                return False
+            else:
+                return True
+
+        if self.name=='knight':
+    	  diff_x = abs(x-piece_x)
+    	  diff_y = abs(y-piece_y)
+          if ((diff_x==2 and diff_y==1) or (diff_x==1 and diff_y==2)):
+            if board[x][y].color==self.getOtherColor():
+               return board[x][y]
+            elif board[x][y].color==self.color:
+               return False
+            else:
+               return True
+          else:
+    	      return False
+
+        if self.name=='queen':
+            if piece_x==x:
+                for i in range(min(piece_y,y),max(piece_y,y))[1:]:
+                    if board[x][i].name!=' ':
+                        return False
+            if piece_y==y:
+                for i in range(min(piece_x,x),max(piece_x,x))[1:]:
+                    if board[i][y].name!=' ':
+                        return False
+            if x>piece_x and y>piece_y:
+                for i in range(min(piece_x,x),max(piece_x,x))[1:]:
+                    if board[piece_x+i][piece_y+i].name!=' ':
+                        return False
+            if x>piece_x and y<piece_y:
+                for i in range(min(piece_x,x),max(piece_x,x))[1:]:
+                    if board[piece_x+i][piece_y-i].name!=' ':
+                        return False
+            if x<piece_x and y>piece_y:
+                for i in range(min(piece_x,x),max(piece_x,x))[1:]:
+                    if board[piece_x-i][piece_y+i].name!=' ':
+                        return False
+            if x<piece_x and y<piece_y:
+                for i in range(min(piece_x,x),max(piece_x,x))[1:]:
+                    if board[piece_x-i][piece_y-i].name!=' ':
+                        return False
+            if board[x][y].color==self.getOtherColor():
+                return board[x][y]
+            elif board[x][y].color==self.color:
+                return False
+            else:
+                return True
+
+        if self.name =='king':
+            diff_x = abs(piece_x-x)
+            diff_y = abs(piece_y-y)
+            if ((diff_x == 1 and diff_y == 0) or (diff_x == 1 and diff_y == 1) or (diff_y == 1 and diff_x == 0)):
+                if board[x][y].color==self.getOtherColor():
+                  return board[x][y]
+                elif board[x][y].color==self.color:
+                     return False
+                else:
+                     return True
+            else:
+                return False
 
 
-chess=chessBoard('tim')
-rook=chess.board[0][0]
-pawn = chess.board[1][3]
+
+chess  = chessBoard('tim')
+rook   = chess.board[0][0]
+knight = chess.board[0][1]
+bishop = chess.board[0][2]
+king   = chess.board[0][3]
+queen  = chess.board[0][4]
+pawn   = chess.board[1][3]
+pawn_1 = chess.board[1][4]
